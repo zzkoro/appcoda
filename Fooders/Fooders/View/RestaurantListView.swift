@@ -251,6 +251,7 @@ struct RestaurantListview_Previews: PreviewProvider {
 //                    .previewLayout(.sizeThatFits)
         
         
+        
     }
 }
 
