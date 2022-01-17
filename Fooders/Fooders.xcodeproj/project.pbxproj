@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		635FF6782793D94C00CA187E /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635FF6772793D94C00CA187E /* AboutView.swift */; };
 		63ABB7A527250D5B006BA6BC /* FoodersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB7A427250D5B006BA6BC /* FoodersApp.swift */; };
 		63ABB7A727250D5B006BA6BC /* RestaurantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB7A627250D5B006BA6BC /* RestaurantListView.swift */; };
 		63ABB7A927250D5D006BA6BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63ABB7A827250D5D006BA6BC /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		635FF6772793D94C00CA187E /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		63ABB7A127250D5B006BA6BC /* Fooders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fooders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ABB7A427250D5B006BA6BC /* FoodersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodersApp.swift; sourceTree = "<group>"; };
 		63ABB7A627250D5B006BA6BC /* RestaurantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListView.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				63BD8D0E2725BA2E0086D3FB /* ActivityView.swift */,
 				63BD8D1227261BC30086D3FB /* RestaurantDetailView.swift */,
 				63BD8D202726E6C80086D3FB /* MapView.swift */,
+				635FF6772793D94C00CA187E /* AboutView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				635FF6782793D94C00CA187E /* AboutView.swift in Sources */,
 				63BD8D212726E6C80086D3FB /* MapView.swift in Sources */,
 				63ABB7A727250D5B006BA6BC /* RestaurantListView.swift in Sources */,
 				63BD8D1327261BC30086D3FB /* RestaurantDetailView.swift in Sources */,
