@@ -10,6 +10,9 @@ import SwiftUI
 struct MainView: View {
     
     @State private var selectedTabIndex = 0
+    @State private var showWalkthrough = false
+    
+    @AppStorage("hasViewedWalkthrough") var hasViewedWalkthrough: Bool = false
     
     var body: some View {
         TabView(selection: $selectedTabIndex) {
@@ -19,7 +22,7 @@ struct MainView: View {
                 }
                 .tag(0)
             
-            Text("Discover")
+            DiscoverView()
                 .tabItem {
                     Label("Discover", systemImage: "wand.and.rays")
                 }
@@ -42,6 +45,12 @@ struct MainView: View {
         //        }
         //        .accentColor(Color("NavigationBarTitle"))
         .tabViewStyle(backgroundColor: .blue.opacity(0.1), itemColor: .orange.opacity(0.8), selectedItemColor: Color("NavigationBarTitle"), badgeColor: .green)
+        .sheet(isPresented: $showWalkthrough) {
+            TutorialView()
+        }
+        .onAppear() {
+            showWalkthrough = hasViewedWalkthrough ? false : true
+        }
 
     }
 }
