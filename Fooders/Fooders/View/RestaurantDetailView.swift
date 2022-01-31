@@ -6,19 +6,21 @@
 //
 
 import SwiftUI
+import Combine
 
 struct RestaurantDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var context
     
     @State private var showReview = false
     
-    var restaurant: Restaurant
+    @ObservedObject var restaurant: Restaurant
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
 
-                Image(restaurant.image)
+                Image(uiImage: UIImage(data: restaurant.image)!)
                     .resizable()
                     .scaledToFill()
                     .frame(minWidth:0, maxWidth: .infinity)
@@ -58,16 +60,19 @@ struct RestaurantDetailView: View {
 //                                        .padding([.bottom, .trailing])
                                         .transition(.scale)
                                 }
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 60, alignment: .topTrailing)
+                                
+                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 80, alignment: .topTrailing)
                                 .padding([.trailing])
 //                                .background(.green)
+                                
+                                
                             }
                         }
                         .animation(.spring(response: 0.2, dampingFraction: 0.3, blendDuration: 0.3), value: restaurant.rating)
                     }
                 
 
-                Text(restaurant.description)
+                Text(restaurant.summary)
                     .padding()
                 
                 HStack(alignment: .top) {
@@ -116,6 +121,12 @@ struct RestaurantDetailView: View {
             }
         }
    //     .ignoresSafeArea()
+        .onChange(of:restaurant.rating) { _ in
+            if self.context.hasChanges {
+                print("restaurant save")
+                try? self.context.save()
+            }
+        }
         .overlay {
             VStack {
                 Spacer()
@@ -146,6 +157,7 @@ struct RestaurantDetailView: View {
         
         
         
+        
     }
 }
 
@@ -155,14 +167,14 @@ struct RestaurantDetailView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        let restaurant: Restaurant = Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop",
-                                                       location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423",
-                                                       description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccoloand many more. Come over and enjoy a great meal.", image: "cafedeadend", isFavorite: false, rating: Restaurant.Rating.awesome)
+//        let restaurant: Restaurant = Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop",
+//                                                       location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423",
+//                                                       description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccoloand many more. Come over and enjoy a great meal.", image: "cafedeadend", isFavorite: false, rating: Restaurant.Rating.awesome)
     
         
         NavigationView {
-            RestaurantDetailView(restaurant:restaurant)
-                .environment(\.dynamicTypeSize, .xxxLarge)
+            RestaurantDetailView(restaurant:(PersistenceController.testData?.first)!)
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
 
         .accentColor(.orange)
