@@ -8,6 +8,7 @@
 import SwiftUI
 import os
 import UserNotifications
+import Firebase
 
 @main
 struct FoodersApp: App {
@@ -75,6 +76,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "someCategory")
     
+    // App이 수행되고 있을때(background) QuickActiond을 수행한 경우
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         
         logger.log("windowScene performActionFor called")
@@ -82,6 +84,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
         completionHandler(handleQuickAction(shortcutItem: shortcutItem))
     }
     
+    // App이 수행되고 있지 않는 상태에서 QuickAction을 수행한 경우
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         logger.log("scene willConnectTo called")
@@ -117,6 +120,8 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "someCategory")
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         
         let configuration = UISceneConfiguration(name: "Main Scene", sessionRole: connectingSceneSession.role)
@@ -130,6 +135,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("application didFinishLaunchingWithOptions called")
         
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        
+        UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (granted, error) in
             if granted {
                 print("User notifications are allowed.")
@@ -137,9 +146,83 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("User notifications are not allowed.")
             }
         })
-        
+        application.registerForRemoteNotifications()
+
         return true
     }
     
+    // This function is added here only for debugging purposes, and can be removed if swizzling is enabled.
+    // If swizzling is disabled then this function must be implemented so that the APNs token can be paired to
+    // the FCM registration token.
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        logger.log("apns registered token: \(deviceToken)")
+        
+        // With swizzling disabled you must set the APNs token here.
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        logger.log("first didReceiveRemoteNotification: \(userInfo)")
+        
+        completionHandler(UIBackgroundFetchResult.newData)
+
+    }
+}
+
+extension AppDelegate:UNUserNotificationCenterDelegate {
+    // Application이 Foreground 상태에서 Push를 받을때
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        logger.log("Foreground notification: \(notification)")
+        logger.log("Foreground notification: title - \(notification.request.content.title), body - \(notification.request.content.body)")
+        logger.log("Foreground notification userInfo: \(notification.request.content.userInfo)");
+        
+        let userInfo = notification.request.content.userInfo
+        
+        for key in userInfo.keys {
+            logger.log("key: \(key), value: \(userInfo[key] as! NSObject)")
+        }
+        
+        let key1 = userInfo["key1"] as! String
+        logger.log("key1: \(key1)")
+        
+        if  let apsDict = userInfo["aps"] as? NSDictionary,
+            let alertDict = apsDict["alert"] as? NSDictionary,
+            let apsTitle = alertDict["title"] as? String,
+            let apsBody = alertDict["body"] as? String {
+            logger.log("apsTitle: \(apsTitle), apsBody: \(apsBody)")
+        }
+        
+        completionHandler([.alert, .badge, .sound])
+
+    }
+    
+    // Push를 선택했을때
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        logger.log("clicked notification: \(response)")
+        logger.log("clicked notification userInfo: \(response.notification.request.content.userInfo)")
+        completionHandler()
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+//        print("fcm registered token: \(String(describing: fcmToken))")
+        
+        logger.log("fcm registered token: \(String(describing: fcmToken))")
+        
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+           name: Notification.Name("FCMToken"),
+           object: nil,
+           userInfo: dataDict
+        )
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
     
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>680283052752-fl47en8m91cnrg7l1nmkecrcaiubshnc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.680283052752-fl47en8m91cnrg7l1nmkecrcaiubshnc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAHchMgNp79E5YBJK7dDK_PbY7A1h7mAYY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>680283052752</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.jipps.Fooders</string>
+	<key>PROJECT_ID</key>
+	<string>fooders-28378</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fooders-28378.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:680283052752:ios:c378eca7d49de6e22e5cd5</string>
+</dict>
+</plist>
