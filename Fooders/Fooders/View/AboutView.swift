@@ -41,7 +41,7 @@ struct AboutView: View {
                             .foregroundColor(.primary)
                     })
                     
-                    Label("Tell us your feedback", image: "chat")
+                    Label(String(localized: "Tell us your feedback", comment: "Tell us your feedback"), image: "chat")
                         .onTapGesture {
                             link = .feedback
                         }
@@ -102,5 +102,6 @@ struct AboutView: View {
 struct AboutView_Previews: PreviewProvider {
     static var previews: some View {
         AboutView()
+            .environment(\.locale, .init(identifier: "de"))
     }
 }

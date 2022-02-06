@@ -48,6 +48,7 @@ struct DiscoverView: View {
                 .onAppear() {
                     showLoadingIndicator = true
                 }
+                .redacted(reason: showLoadingIndicator ? .placeholder : .init())
                 
                 if showLoadingIndicator {
                     ProgressView()
