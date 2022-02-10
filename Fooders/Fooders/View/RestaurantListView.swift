@@ -5,10 +5,13 @@
 //  Created by junemp on 2021/10/24.
 //
 
+import os
 import SwiftUI
 import CoreData
 
 struct RestaurantListView: View {
+    
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "someCategory")
     
     @Environment(\.managedObjectContext) var context
     
@@ -16,30 +19,27 @@ struct RestaurantListView: View {
     var restaurants: FetchedResults<Restaurant>
     
     @State private var showNewRestaurant = false
-    
     @State private var searchText = ""
     
     var body: some View {
         NavigationView {
             List {
-                if restaurants.count == 0 {
-                    Image("emptydata")
-                        .resizable()
-                        .scaledToFit()
-                    
-                } else {
-                
-                    ForEach(restaurants.indices, id: \.self) { index in
-        //                FullImageRow(restaurant: $restaurants[index])
+                ScrollViewReader { proxy in
+                    if restaurants.count == 0 {
+                        Image("emptydata")
+                            .resizable()
+                            .scaledToFit()
                         
-                        ZStack(alignment: .leading) {
-                            NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])) {
-                                EmptyView()
+                    } else {
+                        ForEach(restaurants.indices, id: \.self) { index in
+            //                FullImageRow(restaurant: $restaurants[index])
+                            ZStack(alignment: .leading) {
+                                NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])) {
+                                    EmptyView()
+                                }
+                                .opacity(0)
+                                BasicTextImageRow(restaurant: restaurants[index])
                             }
-                            .opacity(0)
-                            BasicTextImageRow(restaurant: restaurants[index])
-                        }
-                        
                             .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
                                 
                                 Button {
@@ -53,14 +53,15 @@ struct RestaurantListView: View {
                                     Image(systemName: "square.and.arrow.up")
                                 }
                                 .tint(.orange)
-                                
-                               
-                                
                             })
-                        
+                        }
+                        .onDelete(perform: deleteRecord)
+                       // .listRowSeparator(.hidden)
+                        .onMove { (index, dest) in
+                            print("index: \(index)")
+                            print("dest: \(dest)")
+                        }
                     }
-                    .onDelete(perform: deleteRecord)
-                   // .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)
@@ -98,6 +99,9 @@ struct RestaurantListView: View {
             default: return
             }
         })
+        .task {
+            prepareNotification()
+        }
     }
 
     private func deleteRecord(indexSet: IndexSet) {
@@ -113,6 +117,55 @@ struct RestaurantListView: View {
                 print(error)
             }
         }
+    }
+    
+    private func prepareNotification() {
+        if restaurants.count <= 0 {
+            logger.log("restaurant count is zero")
+            return
+        }
+        
+        let ramdomNum = Int.random(in: 0..<restaurants.count)
+        let suggestedRestaurant = restaurants[ramdomNum]
+        
+        // create the user notification
+        let content = UNMutableNotificationContent()
+        content.title = "레스토랑 추천"
+        content.subtitle = "새로운 음식을 먹어보세요"
+        content.body = "\(suggestedRestaurant.name) 레스토랑을 추천합니다. 이 레스토랑 위치는 \(suggestedRestaurant.location)입니다."
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["phone": suggestedRestaurant.phone]
+        
+        // Adding the image
+        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let tempFileURL = tempDirURL.appendingPathComponent("suggested-restaurant.jpg")
+        
+        logger.log("tempFileURL is \(tempFileURL)")
+        
+        if let image = UIImage(data: suggestedRestaurant.image as Data) {
+            try? image.jpegData(compressionQuality: 1.0)?.write(to: tempFileURL)
+            if let restaurantImage = try? UNNotificationAttachment(identifier: "restaurantImage", url: tempFileURL, options: nil) {
+                content.attachments = [restaurantImage]
+            }
+        }
+        
+        // Adding actions
+        let categoryIdentifier = "fooders.restaurantaction"
+        let makeReservationAction = UNNotificationAction(identifier: "fooders.makeReservation", title: "자리예약하기", options: [.foreground])
+        let cancelAction = UNNotificationAction(identifier: "fooders.cancel", title: "나중에", options: [])
+        let category = UNNotificationCategory(identifier: categoryIdentifier, actions: [makeReservationAction, cancelAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        
+        content.categoryIdentifier = categoryIdentifier
+        
+        // Adding trigger
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let request = UNNotificationRequest(identifier: "fooders.restaurantSuggestion", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+        logger.log("fooders.restaurantSuggestion notification registered!!")
+        
     }
 }
 

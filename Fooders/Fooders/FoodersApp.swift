@@ -138,6 +138,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         
+        // authorization request
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (granted, error) in
             if granted {
@@ -185,8 +186,9 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             logger.log("key: \(key), value: \(userInfo[key] as! NSObject)")
         }
         
-        let key1 = userInfo["key1"] as! String
-        logger.log("key1: \(key1)")
+        if let key1 = userInfo["key1"] as? String {
+            logger.log("key1: \(key1)")
+        }
         
         if  let apsDict = userInfo["aps"] as? NSDictionary,
             let alertDict = apsDict["alert"] as? NSDictionary,
@@ -194,6 +196,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             let apsBody = alertDict["body"] as? String {
             logger.log("apsTitle: \(apsTitle), apsBody: \(apsBody)")
         }
+        
+
         
         completionHandler([.alert, .badge, .sound])
 
@@ -204,6 +208,21 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         
         logger.log("clicked notification: \(response)")
         logger.log("clicked notification userInfo: \(response.notification.request.content.userInfo)")
+        
+        
+        if response.actionIdentifier == "fooders.makeReservation" {
+            logger.log("Make reservation...")
+            if let phone = response.notification.request.content.userInfo["phone"] {
+                let telURL = "tel://\(phone)"
+                if let url = URL(string: telURL) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        logger.log("calling \(telURL)")
+                        UIApplication.shared.open(url)
+                    }
+                }
+            }
+        }
+        
         completionHandler()
     }
 }

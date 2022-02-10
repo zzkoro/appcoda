@@ -22,18 +22,6 @@ struct RedactedTestView: View {
     }
 }
 
-//struct Repo: Hashable, Decodable {
-//    let name: String
-//    let description: String
-//    let stars: Int
-//}
-
-//struct Repo {
-//    let name: String
-//    let description: String
-//    let stars: Int
-//}
-
 extension Repo {
     static let mock = Repo(
         id: 1,
