@@ -43,7 +43,7 @@ struct MainView: View {
     var body: some View {
         ZStack {
             TabView(selection: $selectedTabIndex) {
-                RestaurantListView()
+                RestaurantListView(bottomSheetShow: $bottomSheetShow)
                     .tabItem {
                         Label("Favorites", systemImage: "tag.fill")
                     }
@@ -95,7 +95,7 @@ struct MainView: View {
                 }
             })
             .gesture(selectedTabIndex==10 ? dragGesture : nil)
-            
+             
             if bottomSheetShow {
                 BottomSheetView(isOpen: $bottomSheetOpen, isShow: $bottomSheetShow, maxHeight: 500) {
                     Rectangle().fill(Color.red)

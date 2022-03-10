@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6336750227A6CA68004E821A /* NewRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6336750127A6CA68004E821A /* NewRestaurantView.swift */; };
 		6336750527A6D5AC004E821A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6336750427A6D5AC004E821A /* ImagePicker.swift */; };
+		635DB2B827B9505500C2A81C /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 635DB2B727B9505500C2A81C /* Introspect */; };
 		635FF6782793D94C00CA187E /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635FF6772793D94C00CA187E /* AboutView.swift */; };
 		63A69F7027A7E3640064C108 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A69F6F27A7E3640064C108 /* CloudKit.framework */; };
 		63A69F7227A7F3510064C108 /* RestaurantCloudStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A69F7127A7F3510064C108 /* RestaurantCloudStore.swift */; };
@@ -116,6 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63A69F7027A7E3640064C108 /* CloudKit.framework in Frameworks */,
+				635DB2B827B9505500C2A81C /* Introspect in Frameworks */,
 				B5C167FF850865E91C61D3EA /* Pods_Fooders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,6 +309,9 @@
 			dependencies = (
 			);
 			name = Fooders;
+			packageProductDependencies = (
+				635DB2B727B9505500C2A81C /* Introspect */,
+			);
 			productName = Fooders;
 			productReference = 63ABB7A127250D5B006BA6BC /* Fooders.app */;
 			productType = "com.apple.product-type.application";
@@ -337,6 +342,9 @@
 				de,
 			);
 			mainGroup = 63ABB79827250D5B006BA6BC;
+			packageReferences = (
+				635DB2B627B9505500C2A81C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+			);
 			productRefGroup = 63ABB7A227250D5B006BA6BC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -668,6 +676,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		635DB2B627B9505500C2A81C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		635DB2B727B9505500C2A81C /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 635DB2B627B9505500C2A81C /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		63F8474027A6E9840018DF25 /* Fooders.xcdatamodeld */ = {

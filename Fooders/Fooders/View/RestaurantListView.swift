@@ -8,6 +8,7 @@
 import os
 import SwiftUI
 import CoreData
+import Introspect
 
 struct RestaurantListView: View {
     
@@ -21,47 +22,70 @@ struct RestaurantListView: View {
     @State private var showNewRestaurant = false
     @State private var searchText = ""
     
+    @State var observation: NSKeyValueObservation?
+    @State var navigationController: UINavigationController?
+    @State var tabbarController: UITabBarController?
+    
+    @Binding var bottomSheetShow: Bool
+    
     var body: some View {
         NavigationView {
             List {
-                ScrollViewReader { proxy in
-                    if restaurants.count == 0 {
-                        Image("emptydata")
-                            .resizable()
-                            .scaledToFit()
-                        
-                    } else {
-                        ForEach(restaurants.indices, id: \.self) { index in
-            //                FullImageRow(restaurant: $restaurants[index])
-                            ZStack(alignment: .leading) {
-                                NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])) {
-                                    EmptyView()
-                                }
-                                .opacity(0)
-                                BasicTextImageRow(restaurant: restaurants[index])
+                if restaurants.count == 0 {
+                    Image("emptydata")
+                        .resizable()
+                        .scaledToFit()
+                    
+                } else {
+                    ForEach(restaurants.indices, id: \.self) { index in
+        //                FullImageRow(restaurant: $restaurants[index])
+                        ZStack(alignment: .leading) {
+                            NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])) {
+                                EmptyView()
                             }
-                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-                                
-                                Button {
-                                } label: {
-                                    Image(systemName: "heart")
-                                }
-                                .tint(.green)
-                                
-                                Button {
-                                } label: {
-                                    Image(systemName: "square.and.arrow.up")
-                                }
-                                .tint(.orange)
-                            })
+                            .opacity(0)
+                            BasicTextImageRow(restaurant: restaurants[index])
                         }
-                        .onDelete(perform: deleteRecord)
-                       // .listRowSeparator(.hidden)
-                        .onMove { (index, dest) in
-                            print("index: \(index)")
-                            print("dest: \(dest)")
-                        }
+                        .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                            
+                            Button {
+                            } label: {
+                                Image(systemName: "heart")
+                            }
+                            .tint(.green)
+                            
+                            Button {
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
+                            }
+                            .tint(.orange)
+                        })
                     }
+                    .onDelete(perform: deleteRecord)
+                   // .listRowSeparator(.hidden)
+                }
+            }
+            .introspectTabBarController {
+                tabbarController = $0
+            }
+            .introspectNavigationController {
+                navigationController = $0
+            }
+            .introspectTableView { tableView in
+                observation = tableView.observe(\.contentOffset) { tableView, change in
+                    let transY = tableView.panGestureRecognizer.translation(in: tableView).y
+                    print("y: \(transY)")
+                    if transY != 0 {
+                        bottomSheetShow = false
+                    }
+                    if (transY < 0) {
+                        navigationController?.setNavigationBarHidden(true, animated: true)
+                        tabbarController?.tabBar.isHidden = false
+                    } else {
+                        navigationController?.setNavigationBarHidden(false, animated: true)
+                        tabbarController?.tabBar.isHidden = true
+                    }
+                    
                 }
             }
             .listStyle(.plain)
@@ -82,7 +106,7 @@ struct RestaurantListView: View {
             NewRestaurantView()
         }
         .searchable(text: $searchText,
-                    placement: .navigationBarDrawer(displayMode: .always),
+                    placement: .navigationBarDrawer(displayMode: .automatic),
                     prompt: "Search restaurants...") {
             Text("Thai").searchCompletion("Thaiw")
             Text("Cafe").searchCompletion("Cafed")
@@ -166,6 +190,14 @@ struct RestaurantListView: View {
         
         logger.log("fooders.restaurantSuggestion notification registered!!")
         
+    }
+}
+
+struct ViewOffsetKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue = CGFloat.zero
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value += nextValue()
     }
 }
 
@@ -348,7 +380,7 @@ struct FullImageRow: View {
 
 struct RestaurantListview_Previews: PreviewProvider {
     static var previews: some View {
-        RestaurantListView()
+        RestaurantListView(bottomSheetShow: .constant(false))
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         
 //        RestaurantListView()
