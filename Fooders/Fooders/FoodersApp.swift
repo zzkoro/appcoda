@@ -9,6 +9,8 @@ import SwiftUI
 import os
 import UserNotifications
 import Firebase
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 @main
 struct FoodersApp: App {
@@ -25,6 +27,8 @@ struct FoodersApp: App {
         WindowGroup {
             MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                
+                
         }
         .onChange(of: scenePhase) { (phase) in
             switch phase {
@@ -52,6 +56,10 @@ struct FoodersApp: App {
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         UINavigationBar.appearance().compactAppearance = navBarAppearance
+        
+        // kakao sdk 초기화
+        KakaoSDK.initSDK(appKey: "767521032bb2b2d62d2ece5819c68a78")
+        
         
     }
     

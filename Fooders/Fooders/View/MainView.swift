@@ -8,6 +8,7 @@
 import os
 import SwiftUI
 import Lottie
+import KakaoSDKAuth
 
 struct MainView: View {
     
@@ -48,13 +49,13 @@ struct MainView: View {
                         Label("Favorites", systemImage: "tag.fill")
                     }
                     .tag(0)
-                
+
                 DiscoverView()
                     .tabItem {
                         Label("Discover", systemImage: "wand.and.rays")
                     }
                     .tag(1)
-                
+
                 AboutView()
                     .tabItem {
                         Label("About", systemImage: "square.stack")
@@ -65,12 +66,12 @@ struct MainView: View {
                         Label("Event", systemImage: "square.stack")
                     }
                     .tag(3)
+                LoginView()
+                    .tabItem {
+                        Label("Login", systemImage: "square.stack")
+                    }
+                    .tag(4)
             }
-            //        .onAppear() {
-            //            //UITabBar.appearance().barTintColor = .orange.opacity(0.95)
-            //
-            //        }
-            //        .accentColor(Color("NavigationBarTitle"))
             .tabViewStyle(backgroundColor: .blue.opacity(0.1), itemColor: .orange.opacity(0.8), selectedItemColor: Color("NavigationBarTitle"), badgeColor: .green)
             .sheet(isPresented: $showWalkthrough) {
                 TutorialView()
@@ -100,8 +101,6 @@ struct MainView: View {
                 BottomSheetView(isOpen: $bottomSheetOpen, isShow: $bottomSheetShow, maxHeight: 500) {
                     Rectangle().fill(Color.red)
                 }
-                //.animation(.easeOut(duration: 10), value: bottomSheetShow)
-//                .animation(.easeIn)
                 .transition(.move(edge: .bottom))
             }
         }

@@ -8,7 +8,7 @@
 import os
 import SwiftUI
 import CoreData
-import Introspect
+//import Introspect
 
 struct RestaurantListView: View {
     
@@ -65,34 +65,33 @@ struct RestaurantListView: View {
                    // .listRowSeparator(.hidden)
                 }
             }
-            .introspectTabBarController {
-                tabbarController = $0
-            }
-            .introspectNavigationController {
-                navigationController = $0
-            }
-            .introspectTableView { tableView in
-                observation = tableView.observe(\.contentOffset) { tableView, change in
-                    let transY = tableView.panGestureRecognizer.translation(in: tableView).y
-                    print("y: \(transY)")
-                    if transY != 0 {
-                        bottomSheetShow = false
-                    }
-                    if (transY < 0) {
-                        navigationController?.setNavigationBarHidden(true, animated: true)
-                        tabbarController?.tabBar.isHidden = false
-                    } else {
-                        navigationController?.setNavigationBarHidden(false, animated: true)
-                        tabbarController?.tabBar.isHidden = true
-                    }
-                    
-                }
-            }
+//            .introspectTabBarController {
+//                tabbarController = $0
+//            }
+//            .introspectNavigationController {
+//                navigationController = $0
+//            }
+//            .introspectTableView { tableView in
+//                observation = tableView.observe(\.contentOffset) { tableView, change in
+//                    let transY = tableView.panGestureRecognizer.translation(in: tableView).y
+//                    print("y: \(transY)")
+//                    if transY != 0 {
+//                        bottomSheetShow = false
+//                    }
+//                    if (transY < 0) {
+//                        navigationController?.setNavigationBarHidden(true, animated: true)
+//                        tabbarController?.tabBar.isHidden = false
+//                    } else {
+//                        navigationController?.setNavigationBarHidden(false, animated: true)
+//                        tabbarController?.tabBar.isHidden = true
+//                    }
+//                    
+//                }
+//            }
             .listStyle(.plain)
             .navigationTitle("Fooders")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle("")
-//            .navigationBarHidden(true)
             .toolbar {
                 Button(action: {
                     self.showNewRestaurant = true
