@@ -52,5 +52,7 @@
 		<key>UILaunchScreen</key>
 		<dict/>
 	</dict>
+	<key>KAKAO_APP_KEY</key>
+	<string>767521032bb2b2d62d2ece5819c68a78</string>
 </dict>
 </plist>

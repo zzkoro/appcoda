@@ -58,8 +58,8 @@ struct FoodersApp: App {
         UINavigationBar.appearance().compactAppearance = navBarAppearance
         
         // kakao sdk 초기화
-        KakaoSDK.initSDK(appKey: "767521032bb2b2d62d2ece5819c68a78")
-        
+        let KAKAO_APP_KEY: String = (Bundle.main.infoDictionary?["KAKAO_APP_KEY"] as? String)!
+        KakaoSDK.initSDK(appKey: KAKAO_APP_KEY)
         
     }
     

@@ -9,6 +9,8 @@ import os
 import SwiftUI
 import Lottie
 import KakaoSDKAuth
+import KakaoSDKUser
+import Security
 
 struct MainView: View {
     
@@ -71,6 +73,22 @@ struct MainView: View {
                         Label("Login", systemImage: "square.stack")
                     }
                     .tag(4)
+                    .onOpenURL { url in
+                        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                            print("onOpenUrl: isKakaoLogin")
+                            _ = AuthController.handleOpenUrl(url: url)
+                            
+                            UserApi.shared.me() { (user, error) in
+                                if let error = error {
+                                    print("kakao me \(error)")
+                                } else {
+                                    print("kakao id: \(String((user?.id)!))")
+                                    print("kakao email: \((user?.kakaoAccount?.email)!)")
+                                }
+                            }
+                            
+                        }
+                    }
             }
             .tabViewStyle(backgroundColor: .blue.opacity(0.1), itemColor: .orange.opacity(0.8), selectedItemColor: Color("NavigationBarTitle"), badgeColor: .green)
             .sheet(isPresented: $showWalkthrough) {
