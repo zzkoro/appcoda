@@ -76,7 +76,7 @@ struct MainView: View {
                     .onOpenURL { url in
                         if (AuthApi.isKakaoTalkLoginUrl(url)) {
                             print("onOpenUrl: isKakaoLogin")
-                            _ = AuthController.handleOpenUrl(url: url)
+//                            _ = AuthController.handleOpenUrl(url: url)
                             
                             UserApi.shared.me() { (user, error) in
                                 if let error = error {

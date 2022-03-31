@@ -58,9 +58,8 @@ struct FoodersApp: App {
         UINavigationBar.appearance().compactAppearance = navBarAppearance
         
         // kakao sdk 초기화
-        let KAKAO_APP_KEY: String = (Bundle.main.infoDictionary?["KAKAO_APP_KEY"] as? String)!
-        KakaoSDK.initSDK(appKey: KAKAO_APP_KEY)
-        
+//        let KAKAO_APP_KEY: String = (Bundle.main.infoDictionary?["KAKAO_APP_KEY"] as? String)!
+        KakaoSDK.initSDK(appKey: getKakaoAppKey())
     }
     
     func createQuickActions() {
@@ -75,6 +74,53 @@ struct FoodersApp: App {
             
 
         }
+    }
+    
+    func getKakaoAppKey() -> String {
+        let account = "KakaoAppKey"
+        let service = Bundle.main.bundleIdentifier
+        
+        print("start getKakaoAppKey")
+        
+        // kakao app key 조회하기
+        let readQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                    kSecAttrService: service!,
+                                    kSecAttrAccount: account,
+                                     kSecMatchLimit: kSecMatchLimitOne,
+                               kSecReturnAttributes: true,
+                                     kSecReturnData: true]
+        
+        var item: CFTypeRef?
+        if (SecItemCopyMatching(readQuery as CFDictionary, &item) == errSecSuccess) {
+            
+            print("start secItemCopyMatching")
+            
+            if let existingItem = item as? [String: Any],
+               let data = existingItem[kSecAttrGeneric as String] as? String {
+            
+                print("read kakao app key: \(data)")
+                
+                return data
+            }
+        }
+        
+
+        
+        // kakao app key 가져와서 KeyChain에 저장하기
+        let kakaoAppKey = "767521032bb2b2d62d2ece5819c68a78"
+        let saveQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                    kSecAttrService: service!,
+                                    kSecAttrAccount: account,
+                                kSecAttrGeneric: kakaoAppKey]
+
+        print("start secItemAdd")
+        
+        if (SecItemAdd(saveQuery as CFDictionary, nil) != errSecSuccess) {
+            print("save kakao app key error")
+        }
+        
+        return kakaoAppKey
+        
     }
 }
 

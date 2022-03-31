@@ -10,13 +10,23 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 struct LoginView: View {
+    
+    @State private var isKakaoLogin: Bool
+    
+    init() {
+        Task.init {
+            do {
+                isKakaoLogin = try await AuthService.shared.isKakoLogin()
+            } catch {
+                print("isKakaoLogin check error: \(error)")
+            }
+        }
+    }
+    
     var body: some View {
         Button(action: {
             //카카오톡이 설치되어 있는지 확인
             if (UserApi.isKakaoTalkLoginAvailable()) {
-//                if (false) {
-                
-                
                 //카카오톡을 통해 로그인
                 print("start loginWithKakoTalk")
                 UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
@@ -31,14 +41,20 @@ struct LoginView: View {
                 }
             }
         }) {
-            Image("kakao_login_large_wide")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width : UIScreen.main.bounds.width * 0.9)
-            
+            if (isKakaoLogin) {
+                Image("kakao_login_large_wide")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width : UIScreen.main.bounds.width * 0.9)
+            } else {
+                Text("Kakao Logined")
+            }
+
         }
         
     }
+    
+    
 }
 
 struct LoginView_Previews: PreviewProvider {

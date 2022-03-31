@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63248A7927F33FC3001C497F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63248A7827F33FC3001C497F /* AuthService.swift */; };
 		6336750227A6CA68004E821A /* NewRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6336750127A6CA68004E821A /* NewRestaurantView.swift */; };
 		6336750527A6D5AC004E821A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6336750427A6D5AC004E821A /* ImagePicker.swift */; };
 		635FF6782793D94C00CA187E /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635FF6772793D94C00CA187E /* AboutView.swift */; };
@@ -67,6 +68,7 @@
 		19932434D8F37A4B882CFD8F /* Pods-Fooders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fooders.release.xcconfig"; path = "Target Support Files/Pods-Fooders/Pods-Fooders.release.xcconfig"; sourceTree = "<group>"; };
 		2F20C03E1DD1024CD43DFF79 /* Pods_Fooders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fooders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		407F8EE64BE04B73986575B0 /* Pods-Fooders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fooders.debug.xcconfig"; path = "Target Support Files/Pods-Fooders/Pods-Fooders.debug.xcconfig"; sourceTree = "<group>"; };
+		63248A7827F33FC3001C497F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6336750127A6CA68004E821A /* NewRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRestaurantView.swift; sourceTree = "<group>"; };
 		6336750427A6D5AC004E821A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		635FF6772793D94C00CA187E /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				63DDA16627AF750500402C15 /* GithubService.swift */,
+				63248A7827F33FC3001C497F /* AuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				635FF6782793D94C00CA187E /* AboutView.swift in Sources */,
+				63248A7927F33FC3001C497F /* AuthService.swift in Sources */,
 				63D5D0EA2795B26700D90D22 /* MainView.swift in Sources */,
 				63C7E4B5279D285F00D2876D /* WebView.swift in Sources */,
 				63D5D0EC2795B7A500D90D22 /* View+Ext.swift in Sources */,
