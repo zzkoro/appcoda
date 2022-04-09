@@ -10,36 +10,60 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import KakaoSDKCommon
 
-class AuthService {
-    public static let shared = AuthService()
+enum LoginType: String {
+    case kakao
+    case apple
+    case none
+}
+
+class AuthService: ObservableObject {
     
-    func isKakoLogin() throws -> Bool {
-        var mutaisLogin: Bool
+    @Published private(set) var savedLogin:LoginType = LoginType.none
+    @Published private(set) var isFetching = false
+    
+    private let store = AuthServiceStore()
+    
+    public init() {}
+}
+
+extension AuthService {
+    @MainActor
+    func fetchLogin() async throws {
+        isFetching = true
+        defer {
+            isFetching = false
+        }
+        savedLogin = try await store.load()
         
-        // 유효한 토큰이 있는지 검사한다.
+        print("fetchLogin: \(savedLogin)")
+        
+    }
+}
+
+private actor AuthServiceStore {
+    func load() async throws -> LoginType {
+        // kakao login check
         if (AuthApi.hasToken()) {
-            Task.init {
-                do {
-                    let tokenInfo: AccessTokenInfo = try await withCheckedThrowingContinuation { continuation in
-                        UserApi.shared.accessTokenInfo { (accessTokenInfo, error) in
-                            if let error = error {
-                                continuation.resume(with: .failure(error))
-                            } else if let accessTokenInfo = accessTokenInfo {
-                                continuation.resume(with: .success(accessTokenInfo))
-                            }
+            do {
+                let _: AccessTokenInfo = try await withCheckedThrowingContinuation { continuation in
+                    UserApi.shared.accessTokenInfo { (accessTokenInfo, error) in
+                        if let error = error {
+                            continuation.resume(with: .failure(error))
+                        } else if let accessTokenInfo = accessTokenInfo {
+                            continuation.resume(with: .success(accessTokenInfo))
                         }
                     }
-                } catch {
-                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
-                        isLogin = false
-                    } else {
-                        throw error
-                    }
+                }
+                return LoginType.kakao
+            } catch {
+                if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
+                    print("kakao invalid token")
+                } else {
+                    print("kakao access token check error: \(error.localizedDescription)")
                 }
             }
-        } else {
-            return false
         }
+        return LoginType.none
     }
 }
 

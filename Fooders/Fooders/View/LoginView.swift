@@ -11,20 +11,35 @@ import KakaoSDKUser
 
 struct LoginView: View {
     
-    @State private var isKakaoLogin: Bool
-    
-    init() {
-        Task.init {
-            do {
-                isKakaoLogin = try await AuthService.shared.isKakoLogin()
-            } catch {
-                print("isKakaoLogin check error: \(error)")
-            }
-        }
-    }
+    @StateObject var authService = AuthService()
     
     var body: some View {
-        Button(action: {
+            VStack {
+//                Spacer()
+                if authService.savedLogin == LoginType.none {
+                    KakaoLoginButtonView()
+                } else {
+                    let savedLoginType = authService.savedLogin
+                    Text("\(savedLoginType.rawValue) logined")
+                }
+            }
+            .task {
+                try? await authService.fetchLogin()
+            }
+            .opacity(authService.isFetching ? 0 : 1)
+            .overlay {
+                if authService.isFetching {
+                    ProgressView()
+                }
+            }
+    }
+    
+    
+}
+
+struct KakaoLoginButtonView: View {
+    var body: some View {
+        Button {
             //카카오톡이 설치되어 있는지 확인
             if (UserApi.isKakaoTalkLoginAvailable()) {
                 //카카오톡을 통해 로그인
@@ -40,21 +55,13 @@ struct LoginView: View {
                     print(error)
                 }
             }
-        }) {
-            if (isKakaoLogin) {
-                Image("kakao_login_large_wide")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width : UIScreen.main.bounds.width * 0.9)
-            } else {
-                Text("Kakao Logined")
-            }
-
+        } label: {
+            Image("kakao_login_large_wide")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width : UIScreen.main.bounds.width * 0.9)
         }
-        
     }
-    
-    
 }
 
 struct LoginView_Previews: PreviewProvider {
