@@ -11,6 +11,7 @@ import UserNotifications
 import Firebase
 import KakaoSDKCommon
 import KakaoSDKAuth
+import AuthenticationServices
 
 @main
 struct FoodersApp: App {
@@ -23,12 +24,23 @@ struct FoodersApp: App {
     
     let persistenceController = PersistenceController.shared
     
+    var window: UIWindow? {
+        guard let scene = UIApplication.shared.connectedScenes.first,
+              let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+              let window = windowSceneDelegate.window else {
+            return nil
+        }
+        
+        print("main window: \(String(describing: window))")
+        
+        return window
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                
-                
+                .environment(\.window, window)
         }
         .onChange(of: scenePhase) { (phase) in
             switch phase {
@@ -142,7 +154,7 @@ final class MainSceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         logger.log("scene willConnectTo called")
-        
+    
         guard let shortcutItem = connectionOptions.shortcutItem else {
             return
         }
@@ -202,6 +214,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         })
         application.registerForRemoteNotifications()
+        
+        // Apple ID 사용중단했을경우 앱으로 돌아왔을때 받는 함수 추가
+        NotificationCenter.default.addObserver(forName: ASAuthorizationAppleIDProvider.credentialRevokedNotification, object: nil, queue: nil) { (Notification) in
+            print("Revoke Apple ID Notification")
+        }
 
         return true
     }

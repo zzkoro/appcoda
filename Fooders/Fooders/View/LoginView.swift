@@ -8,20 +8,27 @@
 import SwiftUI
 import KakaoSDKAuth
 import KakaoSDKUser
+import AuthenticationServices
 
 struct LoginView: View {
+    @Environment(\.window) var window: UIWindow?
     
     @StateObject var authService = AuthService()
+    @State var appleSignInDelegates: SignInWithAppleDelegates! = nil
+    
     
     var body: some View {
             VStack {
 //                Spacer()
-                if authService.savedLogin == LoginType.none {
+//                if authService.savedLogin == LoginType.none {
                     KakaoLoginButtonView()
-                } else {
-                    let savedLoginType = authService.savedLogin
-                    Text("\(savedLoginType.rawValue) logined")
-                }
+                    SignInWithAppleView()
+                        .frame(width: 280, height: 60)
+                        .onTapGesture(perform: showAppleLogin)
+//                } else {
+//                    let savedLoginType = authService.savedLogin
+//                    Text("\(savedLoginType.rawValue) logined")
+//                }
             }
             .task {
                 try? await authService.fetchLogin()
@@ -32,6 +39,53 @@ struct LoginView: View {
                     ProgressView()
                 }
             }
+            .onAppear {
+                // 화면에 들어서자 마자 자동으로 apple id 로그인창을 띄워줌
+//                self.performExistingAccountSetupFlows()
+            }
+    }
+    
+    private func showAppleLogin() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        performSignIn(using: [request])
+    }
+    
+    private func performSignIn(using requests: [ASAuthorizationRequest]) {
+        
+        print("performSignIn")
+        
+        appleSignInDelegates = SignInWithAppleDelegates(window: window) { success in
+            if success {
+                print("performSignIn success")
+            } else {
+                print("performSignIn error")
+            }
+        }
+        
+        
+        let controller = ASAuthorizationController(authorizationRequests: requests)
+        controller.delegate = appleSignInDelegates
+        controller.presentationContextProvider = appleSignInDelegates
+        
+        print("before performRequests")
+        
+        controller.performRequests()
+        
+        print("after performRequests")
+    }
+    
+    private func performExistingAccountSetupFlows() {
+        
+        print("performExistingAccountSetupFlows")
+        
+        let requests = [
+            ASAuthorizationAppleIDProvider().createRequest(),
+            ASAuthorizationPasswordProvider().createRequest()
+        ]
+        
+        performSignIn(using: requests)
     }
     
     
@@ -61,6 +115,15 @@ struct KakaoLoginButtonView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width : UIScreen.main.bounds.width * 0.9)
         }
+    }
+}
+
+final class SignInWithAppleView: UIViewRepresentable {
+    func makeUIView(context: Context) -> ASAuthorizationAppleIDButton {
+        return ASAuthorizationAppleIDButton()
+    }
+    
+    func updateUIView(_ uiView: ASAuthorizationAppleIDButton, context: Context) {
     }
 }
 

@@ -11,6 +11,17 @@
 		6336750227A6CA68004E821A /* NewRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6336750127A6CA68004E821A /* NewRestaurantView.swift */; };
 		6336750527A6D5AC004E821A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6336750427A6D5AC004E821A /* ImagePicker.swift */; };
 		635FF6782793D94C00CA187E /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635FF6772793D94C00CA187E /* AboutView.swift */; };
+		638B393C280173A60061AE0A /* SignInWithAppleDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B393B280173A60061AE0A /* SignInWithAppleDelegates.swift */; };
+		638B3943280190370061AE0A /* UserDataKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B393F280190370061AE0A /* UserDataKeychain.swift */; };
+		638B3944280190370061AE0A /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B3940280190370061AE0A /* Keychain.swift */; };
+		638B3945280190370061AE0A /* SharedWebCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B3941280190370061AE0A /* SharedWebCredential.swift */; };
+		638B39472801929E0061AE0A /* WebApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B39462801929E0061AE0A /* WebApi.swift */; };
+		638B394C28028C660061AE0A /* EnvironmentWindowKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B394B28028C660061AE0A /* EnvironmentWindowKey.swift */; };
+		638B394E28030EC80061AE0A /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B394D28030EC80061AE0A /* UserData.swift */; };
+		638B3950280312F30061AE0A /* CUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B394F280312F30061AE0A /* CUserData.swift */; };
+		638B3958280322320061AE0A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B3957280322320061AE0A /* ShareViewController.swift */; };
+		638B395B280322320061AE0A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638B3959280322320061AE0A /* MainInterface.storyboard */; };
+		638B395F280322320061AE0A /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 638B3955280322320061AE0A /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		63A69F7027A7E3640064C108 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A69F6F27A7E3640064C108 /* CloudKit.framework */; };
 		63A69F7227A7F3510064C108 /* RestaurantCloudStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A69F7127A7F3510064C108 /* RestaurantCloudStore.swift */; };
 		63A69F7427A7F4D70064C108 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A69F7327A7F4D70064C108 /* DiscoverView.swift */; };
@@ -51,6 +62,16 @@
 		B5C167FF850865E91C61D3EA /* Pods_Fooders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F20C03E1DD1024CD43DFF79 /* Pods_Fooders.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		638B395D280322320061AE0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63ABB79927250D5B006BA6BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 638B3954280322320061AE0A;
+			remoteInfo = Share;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		63C7392F27A66CCE009D0022 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -58,6 +79,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				638B395F280322320061AE0A /* Share.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,6 +94,18 @@
 		6336750127A6CA68004E821A /* NewRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRestaurantView.swift; sourceTree = "<group>"; };
 		6336750427A6D5AC004E821A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		635FF6772793D94C00CA187E /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		638B393B280173A60061AE0A /* SignInWithAppleDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleDelegates.swift; sourceTree = "<group>"; };
+		638B393F280190370061AE0A /* UserDataKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataKeychain.swift; sourceTree = "<group>"; };
+		638B3940280190370061AE0A /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		638B3941280190370061AE0A /* SharedWebCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedWebCredential.swift; sourceTree = "<group>"; };
+		638B39462801929E0061AE0A /* WebApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebApi.swift; sourceTree = "<group>"; };
+		638B394B28028C660061AE0A /* EnvironmentWindowKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentWindowKey.swift; sourceTree = "<group>"; };
+		638B394D28030EC80061AE0A /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		638B394F280312F30061AE0A /* CUserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUserData.swift; sourceTree = "<group>"; };
+		638B3955280322320061AE0A /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		638B3957280322320061AE0A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		638B395A280322320061AE0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		638B395C280322320061AE0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63A69F6E27A7E3420064C108 /* Fooders.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fooders.entitlements; sourceTree = "<group>"; };
 		63A69F6F27A7E3640064C108 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		63A69F7127A7F3510064C108 /* RestaurantCloudStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCloudStore.swift; sourceTree = "<group>"; };
@@ -118,6 +152,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		638B3952280322320061AE0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63ABB79E27250D5B006BA6BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,9 +186,32 @@
 		6336750327A6D584004E821A /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				638B394B28028C660061AE0A /* EnvironmentWindowKey.swift */,
 				6336750427A6D5AC004E821A /* ImagePicker.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		638B393D280190370061AE0A /* CredentialStorage */ = {
+			isa = PBXGroup;
+			children = (
+				638B394F280312F30061AE0A /* CUserData.swift */,
+				638B394D28030EC80061AE0A /* UserData.swift */,
+				638B393F280190370061AE0A /* UserDataKeychain.swift */,
+				638B3940280190370061AE0A /* Keychain.swift */,
+				638B3941280190370061AE0A /* SharedWebCredential.swift */,
+			);
+			path = CredentialStorage;
+			sourceTree = "<group>";
+		};
+		638B3956280322320061AE0A /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				638B3957280322320061AE0A /* ShareViewController.swift */,
+				638B3959280322320061AE0A /* MainInterface.storyboard */,
+				638B395C280322320061AE0A /* Info.plist */,
+			);
+			path = Share;
 			sourceTree = "<group>";
 		};
 		63ABB79827250D5B006BA6BC = {
@@ -155,6 +219,7 @@
 			children = (
 				63ABB7A327250D5B006BA6BC /* Fooders */,
 				63C7392327A66CCD009D0022 /* EventTimes */,
+				638B3956280322320061AE0A /* Share */,
 				63C7391E27A66CCD009D0022 /* Frameworks */,
 				63ABB7A227250D5B006BA6BC /* Products */,
 				13D402CA9FA46C54C96D3B2B /* Pods */,
@@ -165,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				63ABB7A127250D5B006BA6BC /* Fooders.app */,
+				638B3955280322320061AE0A /* Share.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +238,7 @@
 		63ABB7A327250D5B006BA6BC /* Fooders */ = {
 			isa = PBXGroup;
 			children = (
+				638B393D280190370061AE0A /* CredentialStorage */,
 				63DDA16827AFA4D800402C15 /* GoogleService-Info.plist */,
 				63DDA16527AF74F300402C15 /* Service */,
 				63A69F6E27A7E3420064C108 /* Fooders.entitlements */,
@@ -218,6 +285,7 @@
 				63DDA16127AF685100402C15 /* RedactedTestView.swift */,
 				63D9979D27B465A200EE6DBC /* BottomSheetView.swift */,
 				63F7B22527E21B2B00B75A69 /* LoginView.swift */,
+				638B393B280173A60061AE0A /* SignInWithAppleDelegates.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,6 +355,7 @@
 			children = (
 				63DDA16627AF750500402C15 /* GithubService.swift */,
 				63248A7827F33FC3001C497F /* AuthService.swift */,
+				638B39462801929E0061AE0A /* WebApi.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -303,6 +372,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		638B3954280322320061AE0A /* Share */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 638B3962280322320061AE0A /* Build configuration list for PBXNativeTarget "Share" */;
+			buildPhases = (
+				638B3951280322320061AE0A /* Sources */,
+				638B3952280322320061AE0A /* Frameworks */,
+				638B3953280322320061AE0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Share;
+			productName = Share;
+			productReference = 638B3955280322320061AE0A /* Share.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		63ABB7A027250D5B006BA6BC /* Fooders */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63ABB7AF27250D5D006BA6BC /* Build configuration list for PBXNativeTarget "Fooders" */;
@@ -317,6 +403,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				638B395E280322320061AE0A /* PBXTargetDependency */,
 			);
 			name = Fooders;
 			packageProductDependencies = (
@@ -335,9 +422,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
+					638B3954280322320061AE0A = {
+						CreatedOnToolsVersion = 13.3;
+					};
 					63ABB7A027250D5B006BA6BC = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -362,11 +452,20 @@
 			projectRoot = "";
 			targets = (
 				63ABB7A027250D5B006BA6BC /* Fooders */,
+				638B3954280322320061AE0A /* Share */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		638B3953280322320061AE0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638B395B280322320061AE0A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63ABB79F27250D5B006BA6BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -425,6 +524,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		638B3951280322320061AE0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638B3958280322320061AE0A /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63ABB79D27250D5B006BA6BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -437,6 +544,7 @@
 				63C471E9279A0EEB00C18259 /* UINavigationBar+Ext.swift in Sources */,
 				63BD8D212726E6C80086D3FB /* MapView.swift in Sources */,
 				63C7E4B7279D3F0900D2876D /* SafariView.swift in Sources */,
+				638B3945280190370061AE0A /* SharedWebCredential.swift in Sources */,
 				63A69F7427A7F4D70064C108 /* DiscoverView.swift in Sources */,
 				63DDA16227AF685100402C15 /* RedactedTestView.swift in Sources */,
 				63F8474527A76E0B0018DF25 /* RestaurantFormViewModel.swift in Sources */,
@@ -445,9 +553,12 @@
 				63F8474727A7BA870018DF25 /* TutorialView.swift in Sources */,
 				63DDA16427AF6D9B00402C15 /* RepoStore.swift in Sources */,
 				63A69F7227A7F3510064C108 /* RestaurantCloudStore.swift in Sources */,
+				638B3943280190370061AE0A /* UserDataKeychain.swift in Sources */,
 				63C7391827A66A82009D0022 /* EventView.swift in Sources */,
 				63F8473F27A6E7CC0018DF25 /* Persistence.swift in Sources */,
+				638B39472801929E0061AE0A /* WebApi.swift in Sources */,
 				63D9979E27B465A200EE6DBC /* BottomSheetView.swift in Sources */,
+				638B3950280312F30061AE0A /* CUserData.swift in Sources */,
 				63F7B22627E21B2B00B75A69 /* LoginView.swift in Sources */,
 				63F8474227A6E9840018DF25 /* Fooders.xcdatamodeld in Sources */,
 				63ABB7A727250D5B006BA6BC /* RestaurantListView.swift in Sources */,
@@ -455,17 +566,37 @@
 				63BD8D0F2725BA2E0086D3FB /* ActivityView.swift in Sources */,
 				63D5D0EE27960D9B00D90D22 /* Color+Ext.swift in Sources */,
 				63BD8D1F2726B0830086D3FB /* UIColor+Ext.swift in Sources */,
+				638B394E28030EC80061AE0A /* UserData.swift in Sources */,
 				63ABB7A527250D5B006BA6BC /* FoodersApp.swift in Sources */,
 				6336750227A6CA68004E821A /* NewRestaurantView.swift in Sources */,
 				63C7393127A6794A009D0022 /* ReviewView.swift in Sources */,
+				638B393C280173A60061AE0A /* SignInWithAppleDelegates.swift in Sources */,
 				63C7E4B9279D5CFD00D2876D /* WebViewModel.swift in Sources */,
 				63BD8D0B272582E90086D3FB /* Restaurant.swift in Sources */,
+				638B3944280190370061AE0A /* Keychain.swift in Sources */,
+				638B394C28028C660061AE0A /* EnvironmentWindowKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		638B395E280322320061AE0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 638B3954280322320061AE0A /* Share */;
+			targetProxy = 638B395D280322320061AE0A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		638B3959280322320061AE0A /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				638B395A280322320061AE0A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		63A69F7527A82A6E0064C108 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -478,6 +609,60 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		638B3960280322320061AE0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8HCLDZV5B7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Share/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Share;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jipps.Fooders.Share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		638B3961280322320061AE0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8HCLDZV5B7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Share/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Share;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jipps.Fooders.Share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		63ABB7AD27250D5D006BA6BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -671,6 +856,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		638B3962280322320061AE0A /* Build configuration list for PBXNativeTarget "Share" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638B3960280322320061AE0A /* Debug */,
+				638B3961280322320061AE0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		63ABB79C27250D5B006BA6BC /* Build configuration list for PBXProject "Fooders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
