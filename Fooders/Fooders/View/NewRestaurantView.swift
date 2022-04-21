@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CameraManager
 
 struct FormTextField: View {
     let label: String
@@ -72,6 +73,7 @@ struct NewRestaurantView: View {
     enum PhotoSource: Identifiable {
         case photoLibrary
         case camera
+        case cameraManager
         
         var id: Int {
             hashValue
@@ -83,6 +85,8 @@ struct NewRestaurantView: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
+    
+    @State private var lux: Double = 0
     
     init() {
         let viewModel = RestaurantFormViewModel()
@@ -174,6 +178,9 @@ struct NewRestaurantView: View {
                 .default(Text("Photo Library"), action: {
                     self.photoSource = .photoLibrary
                 }),
+                .default(Text("Camera Manager"), action: {
+                    self.photoSource = .cameraManager
+                }),
                 .cancel()
             ])
         }
@@ -181,6 +188,9 @@ struct NewRestaurantView: View {
             switch source {
             case .photoLibrary: ImagePicker(sourceType: .photoLibrary, selectedImage: $restaurantFormViewModel.image).ignoresSafeArea()
             case .camera: ImagePicker(sourceType: .camera, selectedImage: $restaurantFormViewModel.image).ignoresSafeArea()
+            case .cameraManager:
+                let cameraManager = CameraManager()
+                CameraViewController(cameraManager: cameraManager, lux: $lux)
             }
         }
     }
