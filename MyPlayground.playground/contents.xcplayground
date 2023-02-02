@@ -3,7 +3,9 @@
     <pages>
         <page name='CustomLiteral'/>
         <page name='Untitled Page 2'/>
-        <page name='AsyncTest'/>
         <page name='Untitled Page'/>
+        <page name='ConcurrencyExample'/>
+        <page name='SequenceExam'/>
+        <page name='LoggingInSwift'/>
     </pages>
 </playground>
